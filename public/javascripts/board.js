@@ -1,55 +1,83 @@
 var Board = function(window) {
-  "use strict";
+  'use strict';
 
   var util = {};
 
-  // svg
-  var $board = $('#board'),
-    svg = {},
-    width = 600,
-    height = 600;
-
   // canvas
-  var $canvas = $('#canvas');
-
-  // 0: null, 1: pic, 2: pencil, 3: erase
-  var state = 0;
-  var strokeColor = '#000';
+  var canvas = new fabric.Canvas('canvas', {
+    isDrawingMode: true
+  });
 
   // control
-  var $colorBtn = $('#btn_color_000, #btn_color_f00, #btn_color_0f0, #btn_color_00f, #btn_color_ff0, #btn_color_f0f, #btn_color_0ff, #btn_color_fff');
+  var state = 2;
+  var color;
+  var colorId = '';
+  for (var i = 0, len = 17; i <= len; i++) {
+    colorId += '#btn_color_' + i;
+    if (i !== len)
+      colorId += ',';
+  }
+  var $colorBtn = $(colorId);
   var $picBtn = $('#btn_pic');
   var $pencilBtn = $('#btn_pencil');
   var $eraseBtn = $('#btn_erase');
 
   var init = function() {
-
-    svg = d3.select('#board')
-      .append('svg')
-      .attr('width', width)
-      .attr('height', height);
+    canvas.freeDrawingBrush.width = 10;
+    canvas.backgroundColor = '#fff';
+    $pencilBtn.removeClass('btn-default');
+    $pencilBtn.addClass('btn-info');
+    $('#btn_pencil').css('color', '#000');
 
     $colorBtn.click(function() {
-      var color = $(this).data('color');
+      color = $(this).data('color');
       $('#btn_pencil').css('color', color);
-      strokeColor = color;
+      $colorBtn.css('border', '');
+      $(this).css('border', 'medium solid #eee');
+      if (state === 2)
+        canvas.freeDrawingBrush.color = color;
     });
 
     $picBtn.click(function() {
+      changeBtnState(this);
       state = 1;
-      changeCursor(state);
+      changeCursor(1);
     });
 
     $pencilBtn.click(function() {
+      changeBtnState(this);
       state = 2;
-      changeCursor(state);
-
+      changeCursor(2);
+      canvas.freeDrawingBrush.color = color;
+      canvas.freeDrawingBrush.width = 10;
     });
 
-    $eraseBtn.click(function () {
+    $eraseBtn.click(function() {
+      changeBtnState(this);
       state = 3;
-      changeCursor(state);
+      changeCursor(3);
+      canvas.freeDrawingBrush.color = '#fff';
+      canvas.freeDrawingBrush.width = 4;
     });
+  };
+
+  var changeBtnState = function(that) {
+    if (state === 1) {
+      $picBtn.removeClass('btn-info');
+      $picBtn.addClass('btn-default');
+      $(that).removeClass('btn-default');
+      $(that).addClass('btn-info');
+    } else if (state === 2) {
+      $pencilBtn.removeClass('btn-info');
+      $pencilBtn.addClass('btn-default');
+      $(that).removeClass('btn-default');
+      $(that).addClass('btn-info');
+    } else if (state === 3) {
+      $eraseBtn.removeClass('btn-info');
+      $eraseBtn.addClass('btn-default');
+      $(that).removeClass('btn-default');
+      $(that).addClass('btn-info');
+    }
   };
 
   var changeCursor = function(state) {
@@ -64,62 +92,31 @@ var Board = function(window) {
     }
   };
 
-  util.setState = function() {
-
-  };
-
-  util.draw = function() {
-    svg.append('text')
-      .text('this is test test')
-      .attr('x', 100)
-      .attr('y', 100)
-      .attr('font-size', 32);
-  };
-
-  util.erase = function() {
-
-  };
-
-  util.stamp = function(id) {
-
-  };
-
-  var convert = function() {
-    var svg = document.querySelector('svg');
-    var svgData = new XMLSerializer().serializeToString(svg);
-    var imgsrc = 'data:image/svg+xml;charset=utf-8;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-    var image = new Image();
-    image.src = imgsrc;
-    return image;
-  };
+  util.stamp = function(id) {};
 
   util.send = function() {
-    var canvas = document.createElement('canvas');
-    canvas.width = width;
-    canvas.height = height;
-    var ctx = canvas.getContext('2d');
-    var image = convert();
-
-    image.onload = function() {
-      ctx.drawImage(image, 0, 0);
-      var canvasdata = canvas.toDataURL('image/png');
-      Parse.initialize("t9O0Rx2CFi0HrNJivSR1P8d1BIOERB0ok0SDiWgP", "vZGgWJb8uuVlXQBeXI9XZn0R6hNOXnLjwpH4SqLO");
-      var ImageObject = Parse.Object.extend('Image');
-      var imageObject = new ImageObject();
-      imageObject.save({
-        body: 'data:image/png;base64,' + canvasdata.replace(/^.*,/, ''),
-        tag: [],
-        userId: null,
-        sentenceId: null
-      }, {
-        success: function(object) {
-          console.log(object);
-        },
-        error: function(model, error) {
-          console.log(error);
-        }
-      });
-    };
+    var image = canvas.toDataURL({
+      format: 'jpeg',
+      quality: 0.6
+    }).substr(23);
+    Parse.initialize('t9O0Rx2CFi0HrNJivSR1P8d1BIOERB0ok0SDiWgP', 'vZGgWJb8uuVlXQBeXI9XZn0R6hNOXnLjwpH4SqLO');
+    var ImageObject = Parse.Object.extend('Image');
+    var imageObject = new ImageObject();
+    imageObject.save({
+      body: image,
+      tag: [],
+      userId: null,
+      sentenceId: null
+    }, {
+      success: function(object) {
+        console.log(object);
+        alert(object);
+      },
+      error: function(model, error) {
+        console.log(error);
+        alert(error);
+      }
+    });
   };
 
   init();
