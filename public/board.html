@@ -36,15 +36,18 @@
 <body>
   <div class="container-fluid">
     <div class="center-block">
+      <h2 class="text-center">お題</h2>
+    </div>
+    <div class="center-block">
       <canvas id="canvas" class="center-block" width="600" height="600"></canvas>
     </div>
 
     <div class="row" style="margin-top: 30px;">
       <div class="text-center">
         <div class="btn-group btn-group-lg">
-          <button id="btn_pic" class="btn btn-default">
+          <!-- <button id="btn_pic" class="btn btn-default">
             <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
-          </button>
+          </button> -->
           <button id="btn_pencil" class="btn btn-default stroke">
             <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
           </button>
@@ -82,22 +85,33 @@
         </div>
       </div>
     </div>
-  </div>
+    <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="modal_title" class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <p id="modal_body"></p>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  <script src="/javascripts/jquery-2.1.4.min.js"></script>
-  <script src="/javascripts/bootstrap.min.js"></script>
-  <script src="/javascripts/parse-1.4.2.min.js"></script>
-  <script src="/javascripts/fabric.min.js"></script>
-  <script src="/javascripts/board.js"></script>
-  <script>
-    $(function() {
-      var board = new Board();
-      board.draw();
-      $('#send').click(function() {
-        board.send();
+    <script src="/javascripts/jquery-2.1.4.min.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/parse-1.4.2.min.js"></script>
+    <script src="/javascripts/fabric.min.js"></script>
+    <script src="/javascripts/board.js"></script>
+    <script>
+      $(function() {
+        var board = new Board();
+        $('#send').click(function() {
+          $('#send').text('save...');
+          board.send();
+        });
       });
-    });
-  </script>
+    </script>
 </body>
 
 </html>

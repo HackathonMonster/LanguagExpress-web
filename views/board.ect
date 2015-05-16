@@ -1,0 +1,77 @@
+<% extend 'layout' %>
+<div class="container-fluid">
+  <div class="center-block">
+    <h2 class="text-center"><%- @sentence %></h2>
+  </div>
+  <div class="center-block">
+    <canvas id="canvas" class="center-block" width="600" height="600"></canvas>
+  </div>
+
+  <div class="row" style="margin-top: 30px;">
+    <div class="text-center">
+      <div class="btn-group btn-group-lg">
+        <!-- <button id="btn_pic" class="btn btn-default">
+          <span class="glyphicon glyphicon-picture" aria-hidden="true"></span>
+        </button> -->
+        <button id="btn_pencil" class="btn btn-default stroke">
+          <span class="glyphicon glyphicon-tint" aria-hidden="true"></span>
+        </button>
+        <button id="btn_erase" class="btn btn-default">
+          <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+    <div class="text-center">
+      <div class="btn-group">
+        <button id="btn_color_1" class="btn btn-default" style="background-color: #F44336;" data-color="#F44336">&emsp;</button>
+        <button id="btn_color_2" class="btn btn-default" style="background-color: #FF4081;" data-color="#FF4081">&emsp;</button>
+        <button id="btn_color_3" class="btn btn-default" style="background-color: #9C27B0;" data-color="#9C27B0">&emsp;</button>
+        <button id="btn_color_4" class="btn btn-default" style="background-color: #7C4DFF;" data-color="#7C4DFF">&emsp;</button>
+        <button id="btn_color_5" class="btn btn-default" style="background-color: #303F9F;" data-color="#303F9F">&emsp;</button>
+        <button id="btn_color_6" class="btn btn-default" style="background-color: #448AFF;" data-color="#448AFF">&emsp;</button>
+        <button id="btn_color_7" class="btn btn-default" style="background-color: #00BCD4;" data-color="#00BCD4">&emsp;</button>
+        <button id="btn_color_8" class="btn btn-default" style="background-color: #009688;" data-color="#009688">&emsp;</button>
+        <button id="btn_color_9" class="btn btn-default" style="background-color: #4CAF50;" data-color="#4CAF50">&emsp;</button>
+        <button id="btn_color_10" class="btn btn-default" style="background-color: #CDDC39;" data-color="#CDDC39">&emsp;</button>
+        <button id="btn_color_11" class="btn btn-default" style="background-color: #FFEB3B;" data-color="#FFEB3B">&emsp;</button>
+        <button id="btn_color_12" class="btn btn-default" style="background-color: #FFC107;" data-color="#FFC107">&emsp;</button>
+        <button id="btn_color_13" class="btn btn-default" style="background-color: #F57C00;" data-color="#F57C00 ">&emsp;</button>
+        <button id="btn_color_14" class="btn btn-default" style="background-color: #FF5722;" data-color="#FF5722">&emsp;</button>
+        <button id="btn_color_15" class="btn btn-default" style="background-color: #795548;" data-color="#795548">&emsp;</button>
+        <button id="btn_color_16" class="btn btn-default" style="background-color: #9E9E9E;" data-color="#9E9E9E">&emsp;</button>
+        <button id="btn_color_0" class="btn btn-default" style="background-color: #607D8B;" data-color="#607D8B">&emsp;</button>
+        <button id="btn_color_17" class="btn btn-default" style="background-color: #000;" data-color="#000">&emsp;</button>
+        <!-- <button id="btn_color_18" class="btn btn-default" style="background-color: #fff;" data-color="#fff">&emsp;</button> -->
+      </div>
+      <div class="text-center">
+        <div class="btn-group btn-group-lg">
+          <button id="send" class="btn btn-primary">save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 id="modal_title" class="modal-title"></h4>
+        </div>
+        <div class="modal-body">
+          <p id="modal_body"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<% block 'script' : %>
+  <script src="/javascripts/board.js"></script>
+  <script>
+    $(function() {
+      var board = new Board();
+      $('#send').click(function() {
+        $('#send').text('save...');
+        board.send('<%- @sentenceId %>');
+      });
+    });
+  </script>
+<% end %>

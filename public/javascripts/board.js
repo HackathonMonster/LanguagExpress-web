@@ -18,7 +18,7 @@ var Board = function(window) {
       colorId += ',';
   }
   var $colorBtn = $(colorId);
-  var $picBtn = $('#btn_pic');
+  // var $picBtn = $('#btn_pic');
   var $pencilBtn = $('#btn_pencil');
   var $eraseBtn = $('#btn_erase');
 
@@ -39,11 +39,11 @@ var Board = function(window) {
         canvas.freeDrawingBrush.color = color;
     });
 
-    $picBtn.click(function() {
-      changeBtnState(this);
-      state = 1;
-      changeCursor(1);
-    });
+    // $picBtn.click(function() {
+    //   changeBtnState(this);
+    //   state = 1;
+    //   changeCursor(1);
+    // });
 
     $pencilBtn.click(function() {
       changeBtnState(this);
@@ -58,7 +58,7 @@ var Board = function(window) {
       state = 3;
       changeCursor(3);
       canvas.freeDrawingBrush.color = '#fff';
-      canvas.freeDrawingBrush.width = 4;
+      canvas.freeDrawingBrush.width = 5;
     });
   };
 
@@ -95,7 +95,7 @@ var Board = function(window) {
 
   util.stamp = function(id) {};
 
-  util.send = function() {
+  util.send = function(id) {
     var image = canvas.toDataURL({
       format: 'jpeg',
       quality: 0.6
@@ -107,15 +107,22 @@ var Board = function(window) {
       body: image,
       tag: [],
       userId: null,
-      sentenceId: null
+      sentenceId: id
     }, {
       success: function(object) {
-        console.log(object);
-        alert(object);
+        $('#modal_title').text('成功');
+        $('#modal_body').text('あなたの絵が投稿されました。');
+        $('#modal').modal('show');
+        $('#send').text('save');
+        setTimeout(function() {
+          location.href = "http://languagexpress.cloudapp.net";
+        }, 2000);
       },
       error: function(model, error) {
-        console.log(error);
-        alert(error);
+        $('#modal_title').text('失敗');
+        $('#modal_body').text('もう一度やり直してください。');
+        $('#modal').modal('show');
+        $('#send').text('save');
       }
     });
   };

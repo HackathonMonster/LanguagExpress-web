@@ -7,10 +7,10 @@
 var express = require('express'),
   router = express.Router(),
   index = require('../controllers/index.controller'),
-  draw = require('../controllers/draw.controller.js');
+  board = require('../controllers/board.controller.js');
 
 /* GET home page. */
 router.get('/', index.read);
-router.get('/draw', draw.read);
+router.get('/board', board.read);
 
 module.exports = router;
