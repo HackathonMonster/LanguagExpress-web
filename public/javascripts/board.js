@@ -27,7 +27,8 @@ var Board = function(window) {
     canvas.backgroundColor = '#fff';
     $pencilBtn.removeClass('btn-default');
     $pencilBtn.addClass('btn-info');
-    $('#btn_pencil').css('color', '#000');
+    $pencilBtn.css('color', '#000');
+    $('#btn_color_17').css('border', 'medium solid #eee');
 
     $colorBtn.click(function() {
       color = $(this).data('color');
