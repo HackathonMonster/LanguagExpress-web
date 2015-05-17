@@ -25,17 +25,35 @@ var getImage = function(skip, callback) {
  * Read
  */
 exports.read = function(req, res) {
-  var skip = parseInt(req.params.id, 10);
+  var skip = 0;
+  if (req.params.id) {
+    skip = parseInt(req.params.id, 10);
+  }
   getImage(skip, function(error, response, body) {
-    var json = JSON.parse(body);
-    console.log(json);
-    res.render('index', {
+    var json = {};
+    if (!error) {
+      json = JSON.parse(body);
+    }
+    var previous = skip - 1;
+    var previous_url = '#';
+    if (0 <= previous) {
+      previous_url = config.url + '/gallery/' + previous;
+    }
+    var next = skip + 1;
+    var next_url = '#';
+    if (json.results.length === 9) {
+      next_url = config.url + '/gallery/' + next;
+    }
+
+    res.render('gallery', {
       og_type: 'article',
       title: config.title,
       og_image: config.og_image,
       og_url: config.url,
       og_description: config.og_description,
-      // galleries: galleries
+      galleries: json.results,
+      previous: previous_url,
+      next: next_url
     });
   });
 };

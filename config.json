@@ -1,11 +1,13 @@
 {
-  "host": "http://languagexpress.cloudapp.net",
+  "host": "languagexpress.cloudapp.net",
   "title": "hackademics",
-  "og_image": "/image/xxx.png",
+  "og_image": "/images/largeimg.png",
   "og_description": "tokyo hackademics",
-  "url": "http://languagexpress.cloudapp.net",
+  "url": "http://192.168.34.10",
   "parseApplicationId": "t9O0Rx2CFi0HrNJivSR1P8d1BIOERB0ok0SDiWgP",
   "parseAPIKey": "QqynDzsSjdgRy8IfBxP00fk4ZTwc9c4uVKdXH2Pm",
   "jp": {
+  },
+  "en": {
   }
 }

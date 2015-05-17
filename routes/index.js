@@ -12,7 +12,7 @@ var express = require('express'),
 
 /* GET home page. */
 router.get('/', index.read);
-router.get('/gallery/:id([0-9]+)', gallery.read);
+router.get('/gallery/:id([0-9]+)?', gallery.read);
 router.get('/board', board.read);
 
 module.exports = router;

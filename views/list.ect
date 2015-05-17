@@ -1,18 +1,15 @@
 <% galleryHelper = (gallery) -> %>
-  <div class="list">
-    <img class="list_view" src=<%- gallery.image %> alt="<%- gallery.name %>">
-    <h3><%- gallery.name %></h3>
-    <p><%- gallery.uname %></p>
+  <div class="col-xs-4">
+    <a class="gallery-thumbnail" href="#" data-sentence="<%- gallery.sentenceId %>" data-user="<%- gallery.userId %>">
+      <img class="smallimage img-thumbnail" src="data:image/jpeg;base64,<%- gallery.body %>" alt="<%- gallery.name %>" width="200" height="200">
+    </a>
   </div>
-  <div class="col-xs-4"></div>
 <% end %>
 
 <% if @galleries?.length : %>
-  <div class="row center-block">
-    <% for gallery in @galleries : %>
-      <%- galleryHelper gallery %>
-    <% end %>
-  </div>
+  <% for gallery in @galleries : %>
+    <%- galleryHelper gallery %>
+  <% end %>
 <% else : %>
   <p>まだ投稿がありません。</p>
 <% end %>
