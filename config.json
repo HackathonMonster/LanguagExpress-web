@@ -1,9 +1,9 @@
 {
   "host": "languagexpress.cloudapp.net",
-  "title": "hackademics",
-  "og_image": "/images/largeimg.png",
-  "og_description": "tokyo hackademics",
-  "url": "http://192.168.34.10",
+  "title": "LangSketch",
+  "og_image": "http://languagexpress.cloudapp.net/images/largeimg.png",
+  "og_description": "描いて覚える、新感覚語学習得ツール「LangSketch」の紹介ページです。習得時間のかかる言語学習を、楽しく、描いて、記憶に定着させる、今までに無い、新しいアウトプットにより、言語（左脳）＋絵（右脳）の効果的な記憶方法をみなさんが絵を描くことで実現していきます。みなさんの言語習得と、画力の向上を同時に実現し、楽しみながら、外国語を習得してください。",
+  "url": "http://languagexpress.cloudapp.net",
   "parseApplicationId": "t9O0Rx2CFi0HrNJivSR1P8d1BIOERB0ok0SDiWgP",
   "parseAPIKey": "QqynDzsSjdgRy8IfBxP00fk4ZTwc9c4uVKdXH2Pm",
   "jp": {
