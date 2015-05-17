@@ -1,0 +1,15 @@
+<% galleryHelper = (gallery) -> %>
+  <div class="col-xs-4">
+    <a class="gallery-thumbnail" href="#" data-sentence="<%- gallery.sentenceId %>" data-user="<%- gallery.userId %>">
+      <img class="smallimage img-thumbnail" src="data:image/jpeg;base64,<%- gallery.body %>" alt="<%- gallery.name %>" width="200" height="200">
+    </a>
+  </div>
+<% end %>
+
+<% if @galleries?.length : %>
+  <% for gallery in @galleries : %>
+    <%- galleryHelper gallery %>
+  <% end %>
+<% else : %>
+  <p>まだ投稿がありません。</p>
+<% end %>

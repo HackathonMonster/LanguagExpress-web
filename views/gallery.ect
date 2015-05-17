@@ -1,0 +1,60 @@
+<% extend 'layout' %>
+  <div class="container-fluid">
+
+    <div class="row center-block">
+      <div class="col-xs-8 col-xs-offset-2">
+        <% include 'list' %>
+      </div>
+      <div class="col-xs-8 col-xs-offset-2">
+        <nav class="col-xs-2 col-xs-offset-5">
+          <ul class="pagination pagination-lg">
+            <li>
+              <a id="pre" href="<%- @previous %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li>
+              <a id="next" href="<%- @next %>" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <div id="modal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 id="modal_title" class="modal-title text-center lead"></h4>
+          </div>
+          <div class="modal-body">
+            <img id="modal_body" class="center-block" src="" alt="image" width="500" height="500">
+          </div>
+          <div class="modal-footer" style="padding-bottom: 0">
+            <p class="text-center lead">描いたひと: <span id="modal_footer"></span> さん</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% block 'script' : %>
+  <script src="/javascripts/gallery.js"></script>
+  <script>
+    $(function() {
+      var gallery = new Gallery();
+
+      $('.gallery-thumbnail').click(function (e) {
+        e.preventDefault();
+        var userId = $(this).data('user');
+        var sentenceId = $(this).data('sentence');
+        $('#modal_title').text('');
+        $('#modal_footer').text('');
+        gallery.view(userId, sentenceId);
+        $('#modal_body').attr('src', $(this).children().attr('src'));
+        $('#modal').modal('show');
+      });
+    });
+  </script>
+<% end %>
